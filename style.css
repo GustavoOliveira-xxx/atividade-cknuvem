@@ -1,4 +1,5 @@
-/* CK · Conscious Knowledge — identidade "Origem" (roxo · ouro · energia) */
+
+
 :root {
   --bg-0: #050409; --bg-1: #07060c; --bg-2: #0c0a12; --bg-3: #120f1c; --bg-4: #191324;
   --purple-900: #2e0f4d; --purple-700: #6b21a8; --purple-600: #7e22ce;
@@ -42,10 +43,9 @@ code { font-family: var(--font-mono); font-size: .88em; color: var(--purple-200)
   border-bottom: 1px solid transparent; transition: .4s var(--ease); }
 .topo.rolou { border-bottom-color: var(--border-strong); box-shadow: 0 10px 40px rgba(147, 51, 196, .12); }
 .marca { display: flex; align-items: center; gap: .7rem; }
-.marca-ck { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 12px;
-  font: 700 1.05rem var(--font-display); color: #0b0612; background: var(--grad-marca);
-  box-shadow: 0 0 24px rgba(147, 51, 196, .45); }
-.marca-ck.pequeno { width: 2rem; height: 2rem; font-size: .85rem; border-radius: 9px; }
+.marca-ck { display: block; width: 2.6rem; height: 2.6rem; object-fit: contain;
+  filter: drop-shadow(0 0 14px rgba(147, 51, 196, .45)); }
+.marca-ck.pequeno { width: 2rem; height: 2rem; }
 .marca-txt { font: 500 .95rem var(--font-display); color: var(--text-0); letter-spacing: .02em; }
 .nav { display: flex; gap: clamp(.8rem, 2.5vw, 2rem); font-size: .9rem; }
 .nav a { position: relative; color: var(--text-2); transition: color .3s; }

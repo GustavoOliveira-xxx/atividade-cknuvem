@@ -1,6 +1,4 @@
-// CK · Aula 19 — interações da página
 
-// 1) Detecta onde a página está rodando (EC2, GitHub Pages ou local)
 (function ambiente() {
   const host = location.hostname || "arquivo local";
   const ehIP = /^\d{1,3}(\.\d{1,3}){3}$/.test(host);
@@ -31,11 +29,10 @@
   });
 })();
 
-// 2) Cabeçalho muda ao rolar
 const topo = document.getElementById("topo");
 window.addEventListener("scroll", () => topo.classList.toggle("rolou", scrollY > 20), { passive: true });
 
-// 3) Abas Parte 1 / Parte 2
+
 document.querySelectorAll(".aba").forEach((aba) => {
   aba.addEventListener("click", () => {
     document.querySelectorAll(".aba").forEach((a) => {
@@ -49,13 +46,11 @@ document.querySelectorAll(".aba").forEach((aba) => {
   });
 });
 
-// 4) Etapas aparecem ao rolar
 const obs = new IntersectionObserver((entradas) => {
   entradas.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visivel"); obs.unobserve(e.target); } });
 }, { threshold: .2 });
 document.querySelectorAll(".linha li").forEach((li, i) => { li.style.transitionDelay = (i % 8) * 60 + "ms"; obs.observe(li); });
 
-// 5) Botões "copiar"
 document.querySelectorAll(".copiar").forEach((btn) => {
   btn.addEventListener("click", async () => {
     const texto = btn.parentElement.querySelector("code").innerText;
@@ -64,8 +59,6 @@ document.querySelectorAll(".copiar").forEach((btn) => {
     setTimeout(() => (btn.textContent = "copiar"), 1800);
   });
 });
-
-// 6) Terminal animado com os comandos da prática
 const linhas = [
   ["cmd", "sudo apt update"],
   ["out", "Reading package lists... Done"],
