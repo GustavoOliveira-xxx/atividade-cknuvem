@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050409">
+  <meta name="description" content="Aplicação web publicada em uma máquina virtual Amazon EC2 com Apache. Atividade prática de Computação em Nuvem · CK.">
+  <title>Minha aplicação na AWS · CK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <header class="topo" id="topo">
+    <a href="#inicio" class="marca" aria-label="CK · início">
+      <span class="marca-ck">CK</span>
+      <span class="marca-txt">Conscious Knowledge</span>
+    </a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#arquitetura">Arquitetura</a>
+      <a href="#etapas">Etapas</a>
+      <a href="#terminal">Terminal</a>
+      <a href="#conceitos">Conceitos</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO: o que o material pede (título, equipe e descrição) -->
+    <section class="hero" id="inicio">
+      <div class="hero-txt">
+        <p class="tag">Aula 19 · Computação em Nuvem na Prática</p>
+        <h1>Minha primeira aplicação <span class="grad">na nuvem!</span></h1>
+        <h2 class="equipe">Equipe: Gustavo Oliveira dos Santos &amp; Paulo Henrique de Lima Silva</h2>
+        <p class="lead">
+          Esta página está sendo executada em uma máquina virtual utilizando
+          <strong>Amazon EC2</strong>, com sistema operacional <strong>Ubuntu Server</strong>
+          e servidor web <strong>Apache</strong>.
+        </p>
+        <div class="acoes">
+          <a class="btn btn-primario" href="#etapas">Ver o passo a passo</a>
+          <a class="btn btn-ghost" href="#arquitetura">Como funciona</a>
+        </div>
+      </div>
+
+      <aside class="painel" aria-label="Informações do servidor">
+        <div class="painel-topo">
+          <span class="ponto" id="status-ponto"></span>
+          <span id="status-txt">Verificando ambiente…</span>
+        </div>
+        <dl class="painel-dados">
+          <div><dt>Endereço</dt><dd id="info-host">—</dd></div>
+          <div><dt>Protocolo / porta</dt><dd id="info-proto">—</dd></div>
+          <div><dt>Servidor web</dt><dd>Apache 2 · /var/www/html</dd></div>
+          <div><dt>Carregamento</dt><dd id="info-tempo">—</dd></div>
+          <div><dt>Acessado em</dt><dd id="info-data">—</dd></div>
+        </dl>
+      </aside>
+    </section>
+
+    <!-- ARQUITETURA -->
+    <section class="secao" id="arquitetura">
+      <p class="tag">Arquitetura</p>
+      <h2 class="titulo">Do navegador até a máquina virtual</h2>
+      <p class="sub">O caminho que uma requisição percorre quando alguém digita o IP público da instância.</p>
+
+      <ol class="fluxo">
+        <li class="no"><span class="no-ico">01</span><strong>Navegador</strong><small>http://IP-PÚBLICO</small></li>
+        <li class="no"><span class="no-ico">02</span><strong>Internet</strong><small>IPv4 público da AWS</small></li>
+        <li class="no destaque"><span class="no-ico">03</span><strong>Security Group</strong><small>libera 80 (HTTP) e 22 (SSH)</small></li>
+        <li class="no"><span class="no-ico">04</span><strong>Instância EC2</strong><small>Ubuntu Server</small></li>
+        <li class="no"><span class="no-ico">05</span><strong>Apache</strong><small>entrega /var/www/html</small></li>
+      </ol>
+    </section>
+
+    <!-- ETAPAS -->
+    <section class="secao" id="etapas">
+      <p class="tag">Etapas realizadas</p>
+      <h2 class="titulo">O que fizemos, passo a passo</h2>
+
+      <div class="abas" role="tablist">
+        <button class="aba ativa" role="tab" aria-selected="true" data-parte="1">Parte 1 · Máquina virtual</button>
+        <button class="aba" role="tab" aria-selected="false" data-parte="2">Parte 2 · Servidor web</button>
+      </div>
+
+      <ol class="linha" data-parte="1">
+        <li><h3>Acessar o EC2</h3><p>No Console da AWS, pesquisamos por <em>EC2</em>, o serviço que cria máquinas virtuais (instâncias).</p></li>
+        <li><h3>Executar instância</h3><p><em>Launch instance</em>, com o nome <code>Servidor-Web-Equipe01</code>.</p></li>
+        <li><h3>Escolher a AMI</h3><p>Imagem <strong>Ubuntu Server</strong>: o modelo com o sistema operacional da VM.</p></li>
+        <li><h3>Tipo da instância</h3><p>Configuração de pequeno porte, elegível ao plano gratuito.</p></li>
+        <li><h3>Par de chaves</h3><p><em>Create new key pair</em> → <code>chave-equipe01</code>, download do arquivo <code>.pem</code>.</p></li>
+        <li><h3>Security Group</h3><p>Porta <strong>22</strong> (SSH) restrita ao nosso IP e porta <strong>80</strong> (HTTP) liberada.</p></li>
+        <li><h3>Criar a máquina</h3><p>Revisão e <em>Launch instance</em>, aguardando o estado <em>Running</em>.</p></li>
+        <li><h3>IP público</h3><p>Anotamos o <em>Public IPv4 address</em>: é por ele que o site é acessado.</p></li>
+      </ol>
+
+      <ol class="linha" data-parte="2" style="counter-reset: passo 8" hidden>
+        <li><h3>Acessar a máquina</h3><p>Botão <em>Connect</em> → <em>EC2 Instance Connect</em>, abrindo o terminal Linux no navegador.</p></li>
+        <li><h3>Instalar o Apache</h3><p>Atualização dos pacotes e instalação do servidor web.</p>
+          <pre class="cmd"><code>sudo apt update
+sudo apt install apache2 -y
+sudo systemctl status apache2</code><button class="copiar" type="button">copiar</button></pre></li>
+        <li><h3>Testar no navegador</h3><p>Acesso a <code>http://IP-PÚBLICO</code> e exibição da página padrão do Apache.</p></li>
+        <li><h3>Publicar nossa página</h3><p>Criação dos arquivos desta página na pasta do Apache.</p>
+          <pre class="cmd"><code>sudo nano /var/www/html/index.html
+sudo nano /var/www/html/style.css
+sudo nano /var/www/html/script.js</code><button class="copiar" type="button">copiar</button></pre></li>
+      </ol>
+    </section>
+
+    <!-- TERMINAL -->
+    <section class="secao" id="terminal">
+      <p class="tag">Terminal</p>
+      <h2 class="titulo">Comandos executados na instância</h2>
+      <div class="term">
+        <div class="term-barra"><i></i><i></i><i></i><span>ubuntu@ip-172-31-xx-xx: ~</span></div>
+        <pre class="term-corpo" id="term-corpo" aria-live="polite"></pre>
+      </div>
+    </section>
+
+    <!-- CONCEITOS -->
+    <section class="secao" id="conceitos">
+      <p class="tag">Conceitos na prática</p>
+      <h2 class="titulo">O que cada peça representa</h2>
+      <div class="cards">
+        <article class="card"><h3>Máquina virtual</h3><p>Um computador completo, criado por software dentro da infraestrutura física da AWS.</p></article>
+        <article class="card"><h3>Instância</h3><p>O nome que a AWS dá a cada máquina virtual em execução no EC2.</p></article>
+        <article class="card"><h3>AMI</h3><p>Imagem-modelo com o sistema operacional instalado na criação da instância.</p></article>
+        <article class="card"><h3>IP público</h3><p>Endereço que torna a instância alcançável por qualquer navegador na internet.</p></article>
+        <article class="card"><h3>SSH &amp; chave .pem</h3><p>Acesso remoto seguro ao terminal, autenticado por par de chaves em vez de senha.</p></article>
+        <article class="card"><h3>Security Group</h3><p>Firewall virtual: só as portas liberadas (22 e 80) aceitam conexões.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <span class="marca-ck pequeno">CK</span>
+    <p>Gustavo Oliveira dos Santos &amp; Paulo Henrique de Lima Silva · Computação em Nuvem · 2026</p>
+    <a href="#inicio">voltar ao topo ↑</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
